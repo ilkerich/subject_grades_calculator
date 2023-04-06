@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Subject Grades Calculator</title>
+    <script>
+      function calculateGrades() {
+        const numSubjects = parseInt(document.getElementById("numSubjects").value);
+        const grades = [];
+        let sum = 0;
+        for (let i = 1; i <= numSubjects; i++) {
+          const grade = parseFloat(document.getElementById("grade" + i).value);
+          grades.push(grade);
+          sum += grade;
+        }
+        const average = sum / numSubjects;
+        let gradeLetter;
+        if (average >= 90) {
+          gradeLetter = "A";
+        } else if (average >= 80) {
+          gradeLetter = "B";
+        } else if (average >= 70) {
+          gradeLetter = "C";
+        } else if (average >= 60) {
+          gradeLetter = "D";
+        } else {
+          gradeLetter = "F";
+        }
+        document.getElementById("result").innerHTML = "Grades: " + grades.join(", ") +
+          "<br/>Average: " + average.toFixed(2) + "<br/>Grade: " + gradeLetter;
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Subject Grades Calculator</h1>
+    <label for="numSubjects">Enter the number of subjects:</label>
+    <input type="number" id="numSubjects" name="numSubjects"><br/><br/>
+    <div id="subjects">
+    </div>
+    <br/>
+    <button onclick="calculateGrades()">Calculate Grades</button>
+    <br/><br/>
+    <div id="result"></div>
+    <script>
+      document.getElementById("numSubjects").addEventListener("change", function() {
+        const numSubjects = parseInt(document.getElementById("numSubjects").value);
+        let html = "";
+        for (let i = 1; i <= numSubjects; i++) {
+          html += "<label for='grade" + i + "'>Enter the grade for subject " + i + ":</label>";
+          html += "<input type='number' id='grade" + i + "' name='grade" + i + "'><br/>";
+        }
+        document.getElementById("subjects").innerHTML = html;
+      });
+    </script>
+  </body>
+</html>
